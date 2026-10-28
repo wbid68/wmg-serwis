@@ -13,13 +13,13 @@
             <div>
                 <h1 class="text-xl font-bold text-sky-400 mb-6">🛠️ WMG Service</h1>
                 <nav class="space-y-1">
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium bg-sky-600 text-white">Panel Główny</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Pracownicy</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Kalkulator i Kosztorysy</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Galeria Zleceń</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Komunikator</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Kalendarz</a>
-                    <a href="#" class="block px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white">Ustawienia</a>
+                    <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full text-left px-4 py-2.5 rounded-lg font-medium bg-sky-600 text-white transition">Panel Główny</button>
+                    <button onclick="switchTab('employees')" id="btn-employees" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Pracownicy</button>
+                    <button onclick="switchTab('estimates')" id="btn-estimates" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Kalkulator i Kosztorysy</button>
+                    <button onclick="switchTab('gallery')" id="btn-gallery" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Galeria Zleceń</button>
+                    <button onclick="switchTab('chat')" id="btn-chat" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Komunikator</button>
+                    <button onclick="switchTab('calendar')" id="btn-calendar" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Kalendarz</button>
+                    <button onclick="switchTab('settings')" id="btn-settings" class="w-full text-left px-4 py-2.5 rounded-lg font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">Ustawienia</button>
                 </nav>
             </div>
             <div class="text-xs text-slate-500 pt-4 border-t border-slate-800">WMG Service v2.6 - Online</div>
@@ -27,19 +27,121 @@
 
         <!-- Główna treść -->
         <div class="flex-1 p-8 overflow-y-auto bg-slate-950">
-            <h2 class="text-2xl font-bold mb-2">Panel Główny - Witaj Szefie!</h2>
-            <p class="text-slate-400 mb-6">System zarządzania firmą działa poprawnie w chmurze.</p>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 shadow">
-                    <h3 class="text-slate-400 text-sm">Status Wdrożenia</h3>
-                    <p class="text-2xl font-bold text-green-400 mt-2">Aktywny (Vercel)</p>
+            <!-- Panel Główny -->
+            <div id="tab-dashboard" class="tab-content">
+                <h2 class="text-2xl font-bold mb-2">Panel Główny - Witaj Szefie!</h2>
+                <p class="text-slate-400 mb-6">System zarządzania firmą działa poprawnie w chmurze.</p>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 shadow">
+                        <h3 class="text-slate-400 text-sm">Status Wdrożenia</h3>
+                        <p class="text-2xl font-bold text-green-400 mt-2">Aktywny (Vercel)</p>
+                    </div>
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 shadow">
+                        <h3 class="text-slate-400 text-sm">Wersja PWA</h3>
+                        <p class="text-2xl font-bold text-sky-400 mt-2">Gotowa na telefon</p>
+                    </div>
                 </div>
-                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 shadow">
-                    <h3 class="text-slate-400 text-sm">Wersja PWA</h3>
-                    <p class="text-2xl font-bold text-sky-400 mt-2">Gotowa na telefon</p>
+            </div>
+
+            <!-- Pracownicy -->
+            <div id="tab-employees" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Zarządzanie Pracownikami</h2>
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 mb-6 flex gap-3">
+                    <input type="text" id="empName" placeholder="Imię i nazwisko" class="bg-slate-950 border border-slate-700 p-2.5 rounded-lg text-white text-sm flex-1" />
+                    <input type="text" id="empRole" placeholder="Stanowisko" class="bg-slate-950 border border-slate-700 p-2.5 rounded-lg text-white text-sm flex-1" />
+                    <button onclick="addEmployee()" class="bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 px-5 rounded-lg">Dodaj</button>
+                </div>
+                <div id="employeesList" class="space-y-3">
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-lg">Jan Kowalski</h4>
+                            <p class="text-sm text-slate-400">Murarz / Monter | Tel: 123 456 789</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalkulator -->
+            <div id="tab-estimates" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Kalkulator i Kosztorysy</h2>
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <p class="text-slate-400 text-sm">Moduł wycen roboczogodzin i marży dla klientów.</p>
+                </div>
+            </div>
+
+            <!-- Galeria -->
+            <div id="tab-gallery" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Galeria Zleceń - Foldery Projektów</h2>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 cursor-pointer hover:border-sky-500">
+                        <h3 class="text-xl font-bold text-sky-400">📁 Budowa Nowy Sącz</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Komunikator -->
+            <div id="tab-chat" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Komunikator Firmowy</h2>
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 h-64 mb-4 overflow-y-auto text-sm text-slate-300">
+                        <span class="text-sky-400 font-bold">Szef: </span>Zbiórka jutro o 7:00.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalendarz -->
+            <div id="tab-calendar" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Kalendarz / Terminarz</h2>
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <p class="text-slate-400 text-sm">Harmonogram prac i zleceń budowlanych.</p>
+                </div>
+            </div>
+
+            <!-- Ustawienia -->
+            <div id="tab-settings" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">Ustawienia i Powiadomienia</h2>
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <p class="text-slate-400 text-sm">Zarządzanie systemem i powiadomieniami push.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Ukryj wszystkie zakładki
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Pokaż wybraną
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            // Odznacz przyciski menu
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('bg-sky-600', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+            // Podświetl aktywny przycisk
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-sky-600', 'text-white');
+            activeBtn.classList.remove('text-slate-400');
+        }
+
+        function addEmployee() {
+            const name = document.getElementById('empName').value;
+            const role = document.getElementById('empRole').value;
+            if(!name) return;
+            
+            const list = document.getElementById('employeesList');
+            list.innerHTML += `
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold text-lg">${name}</h4>
+                        <p class="text-sm text-slate-400">${role || 'Pracownik'}</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('empName').value = '';
+            document.getElementById('empRole').value = '';
+        }
+    </script>
 </body>
 </html>
